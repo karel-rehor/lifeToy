@@ -2,11 +2,9 @@ package org.kagaka.life;
 
 import java.util.Set;
 
-import org.kagaka.graph.GraphFactoryImpl;
 import org.kagaka.graph.GraphProperties;
 import org.kagaka.graph.GraphPropertiesImpl;
 import org.kagaka.graph.Vertex;
-import org.kagaka.graph.VertexImpl;
 import org.kagaka.graph.grid.Coords2D;
 import org.kagaka.graph.grid.Grid;
 import org.kagaka.life.cell.SimpleLifeVCell;
@@ -20,7 +18,7 @@ public class LifeField {
     
     private int updateCount;
     
-    private final Grid<? extends SimpleLifeVCell> grid; // = GraphFactoryVertexCell.createSimpleLifeGrid(width, height);
+    private final Grid<SimpleLifeVCell> grid; // = GraphFactoryVertexCell.createSimpleLifeGrid(width, height);
 
     public LifeField(int width, int height) {
         super();
@@ -29,8 +27,8 @@ public class LifeField {
         gprops = new GraphPropertiesImpl();
         gprops.set("height", Integer.toString(this.height));
         gprops.set("width", Integer.toString(this.width));
-        GridLifeCellFactory<? extends SimpleLifeVCell> factory = new GridLifeCellFactory<>();
-        grid = (Grid<? extends SimpleLifeVCell>) factory.createGraph(gprops);
+        GridLifeCellFactory<SimpleLifeVCell> factory = new GridLifeCellFactory<>();
+        grid = (Grid<SimpleLifeVCell>) factory.createGraph(gprops);
 //        grid = GraphFactoryImpl.createSimpleLifeGrid(width, height);
         updateCount = 0;
     }
@@ -47,13 +45,13 @@ public class LifeField {
         return updateCount;
     }
 
-    public Grid<? extends SimpleLifeVCell> getGrid() {
+    public Grid<SimpleLifeVCell> getGrid() {
         return grid;
     }
     
     public int getLiveCellCount() {
         int count = 0;
-        for(Vertex<? extends SimpleLifeVCell> slvc : grid.getVertices()) {
+        for(Vertex<SimpleLifeVCell> slvc : grid.getVertices()) {
       //      System.out.println("DEBUG slvc " + slvc.get().getId() + ": " + slvc.get().isAlive());
             if(slvc.get().isAlive()) {
                 count++;
@@ -63,7 +61,7 @@ public class LifeField {
     }
     
     public void zeroAll() {
-        for(Vertex<? extends SimpleLifeVCell> slvc : grid.getVertices()) {
+        for(Vertex<SimpleLifeVCell> slvc : grid.getVertices()) {
             slvc.get().setAlive(false);
         }
     }
@@ -95,14 +93,15 @@ public class LifeField {
     
     public void update() {
 //        Set<Vertex<? extends SimpleLifeVCell>> allVertices;
-        Set<?> allVertices;
+        Set<Vertex<SimpleLifeVCell>> allVertices;
+        Vertex<SimpleLifeVCell> origin = grid.getVertexAt(0,0);
         if(updateCount % 2 == 0) {
-            allVertices = grid.depthFirstTraversal((VertexImpl)grid.getVertexAt(0,0));
+            allVertices = grid.depthFirstTraversal(origin);
         }else {
-            allVertices = grid.breadthFirstTraversal((VertexImpl)grid.getVertexAt(0,0));
+            allVertices = grid.breadthFirstTraversal(origin);
         }
         
-        for(VertexImpl<? extends SimpleLifeVCell> vslvc : (Set<VertexImpl<? extends SimpleLifeVCell>>)allVertices) {
+        for(Vertex<SimpleLifeVCell> vslvc : (Set<Vertex<SimpleLifeVCell>>)allVertices) {
             vslvc.get().getTransform().doIt();
         }
         
@@ -110,8 +109,9 @@ public class LifeField {
         updateCount++;
     }
     
+    
     public void rememberPrevious() {
-        for(Vertex<? extends SimpleLifeVCell> vsc : grid.getVertices()) {
+        for(Vertex<SimpleLifeVCell> vsc : grid.getVertices()) {
             vsc.get().rememberPrevious();
         }
     }
@@ -125,7 +125,7 @@ public class LifeField {
         
         sb.append("width " + width + " height " + height + " total cells " + width * height + "\n");
         
-        int index = 0;
+     //   int index = 0;
       /*  
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
@@ -139,7 +139,8 @@ public class LifeField {
             for(int j = 0; j < width; j++) {
                 String state = grid.getAt(i,j).isAlive() == true ? "*" : "_";
                 sb.append("|" + i + "," + j + "{" + state + "}|");
-                index++;            }
+       //         index++;            
+            }
             sb.append("\n");
         }
         
@@ -154,13 +155,10 @@ public class LifeField {
         
         sb.append("width " + width + " height " + height + " total cells " + width * height + "\n");
 
-        int index = 0;
-
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
                 String state = grid.getAt(i,j).isAlive() == true ? "*" : "_";
                 sb.append("|" + state + "|");
-                index++;            
            }
             sb.append("\n");
         }

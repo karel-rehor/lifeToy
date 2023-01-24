@@ -3,6 +3,7 @@ package org.kagaka.influx;
 import org.kagaka.GeneralKit;
 import org.kagaka.cell.CellImpl;
 import org.kagaka.cell.VertexCellImpl;
+import org.kagaka.graph.Vertex;
 import org.kagaka.graph.VertexImpl;
 import org.kagaka.graph.grid.Coords2D;
 import org.kagaka.life.LifeField;
@@ -102,7 +103,9 @@ public class LifeFluxWriter{
         
         for(SimpleLifeVCell cell : lf.getGrid().getContents()) {
            // System.out.println("DEBUG cell " + cell);
-            Coords2D coords = lf.getGrid().getVertexCoords((VertexImpl) cell.getVertex());
+            Coords2D coords = lf
+                    .getGrid()
+                    .getVertexCoords((Vertex) cell.getVertex());
             lines.add(String.format(format,  
                     cell.getId(),
                     lf.getGrid().getId(),

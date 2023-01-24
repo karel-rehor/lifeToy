@@ -13,7 +13,7 @@ class LifeFieldTest {
     
     LifeField lifeField = new LifeField(width, height);
 
-    @Disabled
+   // @Disabled
     @Test
     void initializationTest() {
         System.out.println("lifeGrid size " + lifeField.getGrid().getVertices().size());        

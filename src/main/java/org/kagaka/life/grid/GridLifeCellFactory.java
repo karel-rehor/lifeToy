@@ -11,10 +11,10 @@ import org.kagaka.graph.VertexImpl;
 import org.kagaka.graph.grid.Grid;
 import org.kagaka.life.cell.SimpleLifeVCell;
 
-public class GridLifeCellFactory<T extends SimpleLifeVCell> implements GraphFactory<T> {
+public class GridLifeCellFactory<T extends VertexCell> implements GraphFactory<T> {
 
     @Override
-    public Graph<T> createGraph(GraphProperties props) {
+    public Graph<SimpleLifeVCell> createGraph(GraphProperties props) {
         
         props.hasKey("height");    
         props.hasKey("width");
@@ -25,7 +25,7 @@ public class GridLifeCellFactory<T extends SimpleLifeVCell> implements GraphFact
         
         Grid<SimpleLifeVCell> grid = new Grid<SimpleLifeVCell>(width, height);
 
-        int index = 0;
+      //  int index = 0;
         
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
@@ -34,15 +34,15 @@ public class GridLifeCellFactory<T extends SimpleLifeVCell> implements GraphFact
 //                SimpleLifeVCell slvc = new SimpleLifeVCell(String.format("[%d,%d](%d)", i, j, index), null);
                 SimpleLifeVCell slvc = new SimpleLifeVCell(GeneralKit.genHexId(GeneralKit.ID_LENGTH), null);
                 VertexCellFactory.joinVertexCell((VertexCell)slvc, (Vertex)vertex);
-                grid.addVertex((Vertex)vertex);
+                grid.addVertex(vertex);
                 
-                index++;
+        //        index++;
             }
         }
         
         grid.joinVertices();
 
-        return (Graph<T>) grid;
+        return (Graph<SimpleLifeVCell>) grid;
 
     }
 
