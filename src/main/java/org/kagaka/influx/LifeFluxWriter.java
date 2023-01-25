@@ -1,10 +1,5 @@
 package org.kagaka.influx;
 
-import org.kagaka.GeneralKit;
-import org.kagaka.cell.CellImpl;
-import org.kagaka.cell.VertexCellImpl;
-import org.kagaka.graph.Vertex;
-import org.kagaka.graph.VertexImpl;
 import org.kagaka.graph.grid.Coords2D;
 import org.kagaka.life.LifeField;
 import org.kagaka.life.cell.SimpleLifeVCell;
@@ -19,8 +14,6 @@ import com.influxdb.exceptions.InfluxException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 public class LifeFluxWriter{
     
@@ -105,7 +98,7 @@ public class LifeFluxWriter{
            // System.out.println("DEBUG cell " + cell);
             Coords2D coords = lf
                     .getGrid()
-                    .getVertexCoords((Vertex) cell.getVertex());
+                    .getVertexCoords(cell.getVertex());
             lines.add(String.format(format,  
                     cell.getId(),
                     lf.getGrid().getId(),

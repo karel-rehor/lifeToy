@@ -66,7 +66,7 @@ public class LifeField {
         }
     }
     
-    public void seed(Coords2D[] seedCells)  throws Exception {
+    public void seed(Coords2D[] seedCells)  throws IndexOutOfBoundsException {
                 
         for(int i = 0; i < seedCells.length; i++) {
             if(seedCells[i].getX() > width - 1 || seedCells[i].getY() > height - 1) {

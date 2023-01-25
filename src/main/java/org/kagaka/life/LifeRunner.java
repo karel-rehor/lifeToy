@@ -1,11 +1,16 @@
 package org.kagaka.life;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.UnrecognizedOptionException;
+
 import org.kagaka.graph.grid.Coords2D;
 import org.kagaka.influx.LifeFluxWriter;
 import org.kagaka.life.cell.SimpleLifeVCell;
 
-import com.influxdb.client.InfluxDBClient;
 import com.influxdb.exceptions.InfluxException;
 
 // TODO make threshold rules configurable

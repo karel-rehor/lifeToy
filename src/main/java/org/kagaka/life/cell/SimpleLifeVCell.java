@@ -1,17 +1,14 @@
 package org.kagaka.life.cell;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-
 import org.kagaka.cell.VertexCell;
 import org.kagaka.cell.VertexCellImpl;
 import org.kagaka.graph.Vertex;
 import org.kagaka.graph.VertexImpl;
 
-public class SimpleLifeVCell extends VertexCellImpl {
+public class SimpleLifeVCell extends VertexCellImpl implements VertexCell{
     
     // TODO make THRESHOLDs configurable
     
@@ -45,9 +42,7 @@ public class SimpleLifeVCell extends VertexCellImpl {
             this.neighborsPrevAlive = new ArrayList<Boolean>();    
             this.neighborAliveStatus = 0.0;
     }
-    
-    
-    
+        
     public static double getDEATH_THRESHOLD() {
         return DEATH_THRESHOLD;
     }
