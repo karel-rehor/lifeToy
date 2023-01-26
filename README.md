@@ -14,8 +14,10 @@ A primitive implementation of the Life game for education and amusement.  Each t
    1. Install dependencies locally: `mvn dependency:copy-dependencies`
    1. Run: `java -classpath target/classes:./target/dependency/* org.kagaka.life.LifeRunner -w 15 -h 10 -t 10 -i`
    
-   Or build and run the jar. 
-   TODO setup jar build. 
+   Or after installing _kagraph_ and setting up influx (from step 4 above) build and run the jar.
+   
+   1. `mvn package assembly:single`
+   1. `java -jar target/lifeToy.jar -t 10 -w 15 -h 10`
    
 __Command line arguments__   
 
